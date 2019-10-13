@@ -21,9 +21,11 @@ public class CursorController : MonoBehaviour
     public Animator buildRef;
     int buildMenuOptionSelection;
     public GameObject resourceTarget;
+    public Transform unitSpawn;
 
     bool buildTriggerActivation = false;
     public GameObject towerObj;
+    public GameObject warriorObj;
     public GameObject farmObj;
     public ResourceManager resourceManager;
 
@@ -71,6 +73,10 @@ public class CursorController : MonoBehaviour
                             if (resourceManager.food >= warriorCost)
                             {
                                 AC_TrainObject.Play();
+                                GameObject spawnWarriorObj = Instantiate(warriorObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnWarriorObj.GetComponent<PlayerColorManager>().playerID = playerID;
+                                spawnWarriorObj.GetComponent<PlayerColorManager>().SetColor();
+                                spawnWarriorObj.GetComponent<UnitController>().walkTarget = transform.position;
                                 resourceManager.food = resourceManager.food - warriorCost;
                                 resourceManager.ChangeUI();
                             }

@@ -1222,6 +1222,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1048356597
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1048356598}
+  m_Layer: 0
+  m_Name: UnitSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1048356598
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048356597}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.67, y: 0, z: 0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1121171158}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1060035493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1325,6 +1355,12 @@ MonoBehaviour:
   playerID: 1
   ColorManager: {fileID: 0}
   myColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!4 &1121171158 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 13237dfbd0b834b409663548a4f7c525,
+    type: 3}
+  m_PrefabInstance: {fileID: 2110665188}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1121171159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2256,5 +2292,16 @@ PrefabInstance:
       propertyPath: ColorManager
       value: 
       objectReference: {fileID: 400229022}
+    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
+        type: 3}
+      propertyPath: warriorObj
+      value: 
+      objectReference: {fileID: 540259287030924774, guid: 492d106e1145d9941a83df43ff075747,
+        type: 3}
+    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
+        type: 3}
+      propertyPath: unitSpawn
+      value: 
+      objectReference: {fileID: 1048356598}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bcbf623d052b7844820e9f57ce28836, type: 3}
