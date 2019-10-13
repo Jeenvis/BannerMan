@@ -15,9 +15,12 @@ public class CursorController : MonoBehaviour
     public AudioSource AC_BuildObject;
     public AudioSource AC_TrainObject;
     public AudioSource AC_CancelBuild;
+    public AudioSource AC_GrabResource;
     public GameObject buildMenu;
     public GameObject[] buildMenuOptions;
+    public Animator buildRef;
     int buildMenuOptionSelection;
+    public GameObject resourceTarget;
 
     bool buildTriggerActivation = false;
     public GameObject towerObj;
@@ -28,7 +31,7 @@ public class CursorController : MonoBehaviour
 
     void Start()
     {
-        walkSpeed = 5;
+        walkSpeed = 10;
     }
 
     void FixedUpdate()
@@ -112,6 +115,7 @@ public class CursorController : MonoBehaviour
             {
                 buildMenuOptionSelection = -1;
             }
+            buildRef.SetInteger("buildMenuOption", buildMenuOptionSelection);
             for (int i = 0; i < buildMenuOptions.Length; i++)
             {
                 if (i != buildMenuOptionSelection)
@@ -124,10 +128,46 @@ public class CursorController : MonoBehaviour
                 }
             }
         }
+        if (Input.GetButtonDown("Joy1_AButton"))
+        {
+            if(resourceTarget != null)
+            {
+                GatherResource();
+            }
+        }
     }
     void BuildTrigger()
     {
         AC_BuildMenu.Play();
         buildMenu.GetComponent<Animator>().SetTrigger("PopUp");
+    }
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "grabAbleResource")
+        {
+            resourceTarget = col.gameObject;
+        }
+    }
+    private void OnTriggerExit(Collider col)
+    {
+        if(resourceTarget == col.gameObject)
+        {
+            resourceTarget = null;
+        }
+    }
+    void GatherResource()
+    {
+        if(resourceTarget.GetComponent<GrabAbleResourceManager>() != null)
+        {
+            if(resourceTarget.GetComponent<GrabAbleResourceManager>().resourceType == "wood" && resourceTarget.GetComponent<GrabAbleResourceManager>().grabbed == false)
+            {
+                resourceManager.wood = resourceManager.wood + resourceTarget.GetComponent<GrabAbleResourceManager>().resourceAmount;
+                resourceTarget.GetComponent<GrabAbleResourceManager>().grabbed = true;
+                resourceManager.ChangeUI();
+                resourceTarget.GetComponent<Animator>().SetTrigger("Grabbed");
+                AC_GrabResource.Play();
+            }
+        }
+        Destroy(resourceTarget,1f);
     }
 }
