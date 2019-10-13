@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2865495961517166039}
   - component: {fileID: 7801687448582773440}
   - component: {fileID: 2684881163522258152}
-  - component: {fileID: 8490716157727166706}
+  - component: {fileID: 3690431143610321300}
+  - component: {fileID: 26879556890252221}
   m_Layer: 0
   m_Name: TowerRef
   m_TagString: Untagged
@@ -95,8 +96,22 @@ MonoBehaviour:
   playerID: 0
   ColorManager: {fileID: 0}
   myColor: {r: 0, g: 0, b: 0, a: 0}
---- !u!65 &8490716157727166706
-BoxCollider:
+--- !u!114 &3690431143610321300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386170125322362361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fe87f99c7e5a343847b7f1b58d160f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inCollider: 0
+  baseColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!136 &26879556890252221
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,9 +120,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2338287, y: 3.5144682, z: 1.2338287}
-  m_Center: {x: 0, y: 1.7572341, z: 0}
+  m_Radius: 0.46268573
+  m_Height: 2.6
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.3, z: 0}
 --- !u!1 &5078394398711186835
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,10 +24,13 @@ public class CursorController : MonoBehaviour
 
     bool buildTriggerActivation = false;
     public GameObject towerObj;
+    public GameObject farmObj;
     public ResourceManager resourceManager;
 
     int towerCost = 2;
+    int farmCost = 2;
     int warriorCost = 2;
+    public int collidersWithRef;
 
     void Start()
     {
@@ -50,7 +53,19 @@ public class CursorController : MonoBehaviour
                     switch (buildMenuOptionSelection)
                     {
                         case 0:
-                            AC_BuildObject.Play();
+                            if (resourceManager.wood >= farmCost && collidersWithRef <= 0)
+                            {
+                                AC_BuildObject.Play();
+                                GameObject spawnFarmObj = Instantiate(farmObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnFarmObj.GetComponent<PlayerColorManager>().playerID = playerID;
+                                spawnFarmObj.GetComponent<PlayerColorManager>().SetColor();
+                                resourceManager.wood = resourceManager.wood - farmCost;
+                                resourceManager.ChangeUI();
+                            }
+                            else
+                            {
+                                AC_CancelBuild.Play();
+                            }
                             break;
                         case 1:
                             if (resourceManager.food >= warriorCost)
@@ -68,7 +83,7 @@ public class CursorController : MonoBehaviour
                             AC_BuildObject.Play();
                             break;
                         case 3:
-                            if (resourceManager.wood >= towerCost)
+                            if (resourceManager.wood >= towerCost && collidersWithRef <= 0)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnTowerObj = Instantiate(towerObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -86,6 +101,7 @@ public class CursorController : MonoBehaviour
                 }
                 buildMenu.GetComponent<Animator>().SetTrigger("PopDown");
                 buildTriggerActivation = false;
+                collidersWithRef = 0;
             }
         }
         if (Input.GetAxisRaw("Joy1_3thAxis") != 0 && buildTriggerActivation == false)

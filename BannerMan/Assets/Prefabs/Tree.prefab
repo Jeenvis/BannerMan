@@ -91,7 +91,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.59999996, y: 2, z: 0.59999996}
+  m_Size: {x: 0.5, y: 2, z: 0.5}
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4068212120217042869
 MonoBehaviour:
@@ -107,6 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceAmount: 1
   resourceType: wood
+  grabbed: 0
 --- !u!95 &4258750822650853864
 Animator:
   serializedVersion: 3
