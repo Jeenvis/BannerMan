@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4785616671117529663}
   - component: {fileID: 4785616671116202527}
   - component: {fileID: 4785616671115104479}
-  - component: {fileID: 5532922833574281236}
   - component: {fileID: 4068212120217042869}
   - component: {fileID: 4258750822650853864}
+  - component: {fileID: 5151323048682036338}
   m_Layer: 0
   m_Name: Tree
   m_TagString: grabAbleResource
@@ -80,19 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &5532922833574281236
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4785616671117299231}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 2, z: 0.5}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4068212120217042869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,3 +114,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &5151323048682036338
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4785616671117299231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.29999998
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}

@@ -16,7 +16,9 @@ public class UnitController : MonoBehaviour
     public float range = 1f;
     float sightMultiplier = 2;
     public float speed = 1f;
+    public int attack = 2;
     private float closeToWalkTarget = 0.2f;
+    public GameObject impactEffect;
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -40,6 +42,7 @@ public class UnitController : MonoBehaviour
                 float dist = Vector3.Distance(transform.position, target.position);
                 if (dist > range)
                 {
+                    //implement navmesh navigation
                     transform.position = Vector3.MoveTowards(transform.position, target.position, step);
                 }
             }
@@ -47,8 +50,10 @@ public class UnitController : MonoBehaviour
     }
     void Start()
     {
+        transform.LookAt(walkTarget);
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-    }
+        InvokeRepeating("HitTarget", 0f, 0.5f);
+        }
     void UpdateTarget()
     {
         if (doneWalking == true)
@@ -78,9 +83,25 @@ public class UnitController : MonoBehaviour
             if (nearestEnemy != null && shortestDistance <= (sight * sightMultiplier))
             {
                 target = nearestEnemy.transform;
+                transform.LookAt(target);
             }
         }
-
+    }
+    void HitTarget()
+    {
+        if (target != null)
+        {
+            float dist = Vector3.Distance(transform.position, target.position);
+            if (dist <= range)
+            {
+                if (nearestEnemy.GetComponent<HealthManager>() != null)
+                {
+                    nearestEnemy.GetComponent<HealthManager>().TakeDamage(attack);
+                    GameObject collisionDust = (GameObject)Instantiate(impactEffect, transform.position + new Vector3(0, 1, 0), transform.rotation);
+                    Destroy(collisionDust, 2f);
+                }
+            }
+        }
     }
     void OnDrawGizmosSelected()
     {
