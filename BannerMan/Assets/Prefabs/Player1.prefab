@@ -120,32 +120,14 @@ PrefabInstance:
       propertyPath: resourceManager
       value: 
       objectReference: {fileID: 1726656380276867789}
-    - target: {fileID: 7593892391564302295, guid: ceb36c2e8964622499561f1dc331010c,
-        type: 3}
-      propertyPath: farmObj
+    - target: {fileID: 1713393811, guid: ceb36c2e8964622499561f1dc331010c, type: 3}
+      propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 6072299871186085697, guid: 089a9d694727e0947bfc16807465db23,
-        type: 3}
-    - target: {fileID: 7593892391564302281, guid: ceb36c2e8964622499561f1dc331010c,
-        type: 3}
-      propertyPath: ColorManager
+      objectReference: {fileID: 9100000, guid: 108047e1f47521f43b5aa7ad0093fb12, type: 2}
+    - target: {fileID: 1047474697, guid: ceb36c2e8964622499561f1dc331010c, type: 3}
+      propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4406711120045821104, guid: ceb36c2e8964622499561f1dc331010c,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6509363338174015999, guid: ceb36c2e8964622499561f1dc331010c,
-        type: 3}
-      propertyPath: myCursorController
-      value: 
-      objectReference: {fileID: 1726656378963388037}
-    - target: {fileID: 4101141828545835489, guid: ceb36c2e8964622499561f1dc331010c,
-        type: 3}
-      propertyPath: myCursorController
-      value: 
-      objectReference: {fileID: 1726656378963388037}
+      objectReference: {fileID: 9100000, guid: ba85be7891a2bf24c957eedd015e1e63, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb36c2e8964622499561f1dc331010c, type: 3}
 --- !u!4 &1726656378963388057 stripped
@@ -154,15 +136,3 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9121122065196069202}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1726656378963388037 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7593892391564302295, guid: ceb36c2e8964622499561f1dc331010c,
-    type: 3}
-  m_PrefabInstance: {fileID: 9121122065196069202}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 245dfdcf3654de44d905083db0114dfc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -563,11 +563,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
   orthographic: 1
-  orthographic size: 5.79
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -579,7 +579,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
+  m_ForceIntoRT: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -590,8 +590,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534669902}
-  m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: -4.49, y: 14.74, z: -10.14}
+  m_LocalRotation: {x: -0.38424432, y: -0.33507156, z: 0.1520404, w: -0.8467391}
+  m_LocalPosition: {x: -3.24, y: 13.79, z: -8.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2294,14 +2294,14 @@ PrefabInstance:
       objectReference: {fileID: 400229022}
     - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
         type: 3}
-      propertyPath: warriorObj
-      value: 
-      objectReference: {fileID: 540259287030924774, guid: 492d106e1145d9941a83df43ff075747,
-        type: 3}
-    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
-        type: 3}
       propertyPath: unitSpawn
       value: 
       objectReference: {fileID: 1048356598}
+    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
+        type: 3}
+      propertyPath: hunterObj
+      value: 
+      objectReference: {fileID: 540259287030924774, guid: 2dba2e319f27894459310398aa16b4a5,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bcbf623d052b7844820e9f57ce28836, type: 3}

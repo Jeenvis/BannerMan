@@ -19,6 +19,12 @@ public class UnitController : MonoBehaviour
     public int attack = 2;
     private float closeToWalkTarget = 0.2f;
     public GameObject impactEffect;
+    public GameObject projectilePrefab;
+    public AudioSource AC_projectileHit;
+    public AudioSource AC_projectileLaunch;
+    public float attackSpeed;
+    public string unitType;
+
     // Start is called before the first frame update
 
     // Update is called once per frame
@@ -40,7 +46,7 @@ public class UnitController : MonoBehaviour
             if (target != null)
             {
                 float dist = Vector3.Distance(transform.position, target.position);
-                if (dist > range)
+                if (dist >= range)
                 {
                     //implement navmesh navigation
                     transform.position = Vector3.MoveTowards(transform.position, target.position, step);
@@ -51,10 +57,19 @@ public class UnitController : MonoBehaviour
     void Start()
     {
         transform.LookAt(walkTarget);
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        InvokeRepeating("HitTarget", 0f, 0.5f);
+        if (unitType == "Warrior")
+        {
+            InvokeRepeating("UpdateTargetWarrior", 0f, 0.5f);
+            InvokeRepeating("MeleeAttack", 0f, attackSpeed);
         }
-    void UpdateTarget()
+        if (unitType == "Hunter")
+        {
+            InvokeRepeating("UpdateTargetHunter", 0f, 0.5f);
+            InvokeRepeating("RangedAttack", 0f, attackSpeed);
+        }
+        
+        }
+    void UpdateTargetWarrior()
     {
         if (doneWalking == true)
         {
@@ -87,7 +102,120 @@ public class UnitController : MonoBehaviour
             }
         }
     }
-    void HitTarget()
+    void UpdateTargetHunter()
+    {
+        if (doneWalking == true)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+            float shortestDistance = Mathf.Infinity;
+            nearestEnemy = null;
+            foreach (GameObject enemy in enemies)
+            {
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < shortestDistance && enemy.GetComponent<UnitController>() != null)
+                {
+                    if (enemy != null)
+                    {
+                        if (enemy.GetComponent<PlayerColorManager>() != null)
+                        {
+                            if (enemy.GetComponent<PlayerColorManager>().playerID != GetComponent<PlayerColorManager>().playerID)
+                            {
+                                nearestEnemy = enemy;
+                                shortestDistance = distanceToEnemy;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (nearestEnemy != null && shortestDistance <= (sight * sightMultiplier))
+            {
+                target = nearestEnemy.transform;
+                transform.LookAt(target);
+            }
+            else if(nearestEnemy == null)
+            {
+                foreach (GameObject enemy in enemies)
+                {
+                    float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                    if (distanceToEnemy < shortestDistance)
+                    {
+                        if (enemy != null)
+                        {
+                            if (enemy.GetComponent<PlayerColorManager>() != null)
+                            {
+                                if (enemy.GetComponent<PlayerColorManager>().playerID != GetComponent<PlayerColorManager>().playerID)
+                                {
+                                    nearestEnemy = enemy;
+                                    shortestDistance = distanceToEnemy;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (nearestEnemy != null && shortestDistance <= (sight * sightMultiplier))
+            {
+                target = nearestEnemy.transform;
+                transform.LookAt(target);
+            }
+        }
+    }
+    void UpdateTargetSiege()
+    {
+        if (doneWalking == true)
+        {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+            float shortestDistance = Mathf.Infinity;
+            nearestEnemy = null;
+            foreach (GameObject enemy in enemies)
+            {
+                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distanceToEnemy < shortestDistance && (enemy.GetComponent<TowerManager>() != null || enemy.GetComponent<ResourceSpawnManager>() != null || enemy.GetComponent<DummyManager>() != null))
+                {
+                    if (enemy != null)
+                    {
+                        if (enemy.GetComponent<PlayerColorManager>() != null)
+                        {
+                            if (enemy.GetComponent<PlayerColorManager>().playerID != GetComponent<PlayerColorManager>().playerID)
+                            {
+                                nearestEnemy = enemy;
+                                shortestDistance = distanceToEnemy;
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (nearestEnemy != null && shortestDistance <= (sight * sightMultiplier))
+            {
+                target = nearestEnemy.transform;
+                transform.LookAt(target);
+            }
+            else if (nearestEnemy == null)
+            {
+                foreach (GameObject enemy in enemies)
+                {
+                    float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                    if (distanceToEnemy < shortestDistance)
+                    {
+                        if (enemy != null)
+                        {
+                            if (enemy.GetComponent<PlayerColorManager>() != null)
+                            {
+                                if (enemy.GetComponent<PlayerColorManager>().playerID != GetComponent<PlayerColorManager>().playerID)
+                                {
+                                    nearestEnemy = enemy;
+                                    shortestDistance = distanceToEnemy;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    void MeleeAttack()
     {
         if (target != null)
         {
@@ -97,15 +225,31 @@ public class UnitController : MonoBehaviour
                 if (nearestEnemy.GetComponent<HealthManager>() != null)
                 {
                     nearestEnemy.GetComponent<HealthManager>().TakeDamage(attack);
-                    GameObject collisionDust = (GameObject)Instantiate(impactEffect, transform.position + new Vector3(0, 1, 0), transform.rotation);
+                    GameObject collisionDust = (GameObject)Instantiate(impactEffect, target.transform.position + new Vector3(0, 1, 0), transform.rotation);
                     Destroy(collisionDust, 2f);
                 }
             }
+        }
+    }
+    void RangedAttack()
+    {
+        GameObject projectileSpawnedPrefab = Instantiate(projectilePrefab, transform.position, transform.rotation) as GameObject;
+        AC_projectileLaunch.Play();
+        ProjectileController projectile = projectileSpawnedPrefab.GetComponent<ProjectileController>();
+        projectile.parentUnit = GetComponent<UnitController>();
+        projectileSpawnedPrefab.GetComponent<PlayerColorManager>().playerID = GetComponent<PlayerColorManager>().playerID;
+            if (projectile != null)
+        {
+            projectile.Seek(target, nearestEnemy);
         }
     }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, sight);
+    }
+    public void ProjectileHit()
+    {
+        AC_projectileHit.Play();
     }
 }

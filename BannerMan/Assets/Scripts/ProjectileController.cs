@@ -8,6 +8,7 @@ public class ProjectileController : MonoBehaviour
     private Transform target;
     private GameObject gOTarget;
     public TowerManager parentTower;
+    public UnitController parentUnit;
     public GameObject impactEffect;
     public float speed;
     public int damage;
@@ -34,7 +35,7 @@ public class ProjectileController : MonoBehaviour
             return;
         }
 
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = (target.position + new Vector3(0,1,0))- transform.position;
         float distanceThisFrame = speed * (Time.deltaTime);
 
         if(dir.magnitude <= distanceThisFrame)
@@ -54,7 +55,14 @@ public class ProjectileController : MonoBehaviour
         if (gOTarget.GetComponent<HealthManager>() != null) {
             gOTarget.GetComponent<HealthManager>().TakeDamage(damage);
         }
-        parentTower.ProjectileHit();
+        if (parentTower != null)
+        {
+            parentTower.ProjectileHit();
+        }
+        else if(parentUnit != null)
+        {
+            parentUnit.ProjectileHit();
+        }
         Destroy(gameObject);
     }
     
