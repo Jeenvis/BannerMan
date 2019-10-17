@@ -2303,5 +2303,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 540259287030924774, guid: 2dba2e319f27894459310398aa16b4a5,
         type: 3}
+    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
+        type: 3}
+      propertyPath: siegeObj
+      value: 
+      objectReference: {fileID: 540259287030924774, guid: 9f588d7ce9daab246a8b81ea84ced5bc,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bcbf623d052b7844820e9f57ce28836, type: 3}

@@ -67,8 +67,12 @@ public class UnitController : MonoBehaviour
             InvokeRepeating("UpdateTargetHunter", 0f, 0.5f);
             InvokeRepeating("RangedAttack", 0f, attackSpeed);
         }
-        
+        if (unitType == "Siege")
+        {
+            InvokeRepeating("UpdateTargetSiege", 0f, 0.5f);
+            InvokeRepeating("MeleeAttack", 0f, attackSpeed);
         }
+    }
     void UpdateTargetWarrior()
     {
         if (doneWalking == true)
@@ -212,6 +216,11 @@ public class UnitController : MonoBehaviour
                         }
                     }
                 }
+            }
+            if (nearestEnemy != null && shortestDistance <= (sight * sightMultiplier))
+            {
+                target = nearestEnemy.transform;
+                transform.LookAt(target);
             }
         }
     }

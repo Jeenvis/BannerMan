@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540259287030924774}
-  m_Mesh: {fileID: 4300000, guid: 587d3bfbb536f67439d53f29ccc208c8, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 5fbcca88155651240b2ee98a154f545a, type: 3}
 --- !u!23 &540259287033125670
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -117,6 +117,10 @@ MonoBehaviour:
   attack: 10
   impactEffect: {fileID: 4147871138764769808, guid: a51c9fc60aeecdb49a49da5c672153e7,
     type: 3}
+  projectilePrefab: {fileID: 0}
+  AC_projectileHit: {fileID: 0}
+  AC_projectileLaunch: {fileID: 0}
+  attackSpeed: 1
   unitType: Siege
 --- !u!136 &8337735232506866266
 CapsuleCollider:
@@ -128,7 +132,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.1
+  m_Radius: 0.45
   m_Height: 0.7095629
   m_Direction: 1
   m_Center: {x: 0, y: 0.35478145, z: 0}

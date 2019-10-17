@@ -32,6 +32,7 @@ public class CursorController : MonoBehaviour
     public GameObject towerObj;
     public GameObject warriorObj;
     public GameObject hunterObj;
+    public GameObject siegeObj;
     public GameObject farmObj;
     public ResourceManager resourceManager;
 
@@ -39,6 +40,7 @@ public class CursorController : MonoBehaviour
     int farmCost = 2;
     int warriorCost = 2;
     int hunterCost = 2;
+    int siegeCost = 2;
     public int collidersWithRef;
 
     void Start()
@@ -143,7 +145,21 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                             case 3:
-                                break;
+                            if (resourceManager.food >= siegeCost)
+                            {
+                                AC_TrainObject.Play();
+                                GameObject spawnSiegeObj = Instantiate(siegeObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnSiegeObj.GetComponent<PlayerColorManager>().playerID = playerID;
+                                spawnSiegeObj.GetComponent<PlayerColorManager>().SetColor();
+                                spawnSiegeObj.GetComponent<UnitController>().walkTarget = transform.position;
+                                resourceManager.food = resourceManager.food - siegeCost;
+                                resourceManager.ChangeUI();
+                            }
+                            else
+                            {
+                                AC_CancelBuild.Play();
+                            }
+                            break;
                         }
                         
                     }
