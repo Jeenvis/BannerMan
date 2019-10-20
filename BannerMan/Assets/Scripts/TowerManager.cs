@@ -29,33 +29,54 @@ public class TowerManager : MonoBehaviour
     }
     void UpdateTarget()
     {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        float shortestDistance = Mathf.Infinity;
-        nearestEnemy = null;
-            foreach(GameObject enemy in enemies)
+        string[] searchForTargetTags = new string[] { enemyTag, enemyTag };
+        string[] searchForTargetTasks = new string[] { "bariccades", "unitsAndBuildings" };
+        SearchForTarget(searchForTargetTags, searchForTargetTasks);
+    }
+    void SearchForTarget(string[] searchTag, string[] searchFor)
+    {
+            for (int i = 0; i < searchFor.Length; i++)
             {
-                float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-                if(distanceToEnemy < shortestDistance)
+                if (target != null)
                 {
-                    if(enemy != null)
+                    return;
+                }
+                GameObject[] enemies = GameObject.FindGameObjectsWithTag(searchTag[i]);
+                float shortestDistance = Mathf.Infinity;
+                nearestEnemy = null;
+                foreach (GameObject enemy in enemies)
+                {
+                    float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+                    //^Repeatable part
+                    if ((searchFor[i] == "bariccades" && distanceToEnemy < shortestDistance && distanceToEnemy < range && enemy.GetComponent<BariccadeManager>() != null)
+                        || (searchFor[i] == "buildings" && distanceToEnemy < shortestDistance && (enemy.GetComponent<TowerManager>() != null || enemy.GetComponent<ResourceSpawnManager>() != null || enemy.GetComponent<DummyManager>() != null || enemy.GetComponent<CastleManager>() != null) && distanceToEnemy < range)
+                        || (searchFor[i] == "units" && distanceToEnemy < shortestDistance && enemy.GetComponent<UnitController>() != null && distanceToEnemy < range)
+                        || (searchFor[i] == "unitsAndBuildings" && distanceToEnemy < shortestDistance && distanceToEnemy < range)
+                        || (searchFor[i] == "grabAbleResources" && distanceToEnemy < shortestDistance && enemy.GetComponent<GrabAbleResourceManager>() != null && distanceToEnemy < range)
+                        || (searchFor[i] == "spawnAbleResources" && distanceToEnemy < shortestDistance && enemy.GetComponent<ResourceSpawnManager>() != null && enemy.GetComponent<ResourceSpawnManager>().resourceActive == true && distanceToEnemy < range)
+                        || (searchFor[i] == "anyTargetAnyRange" && distanceToEnemy < shortestDistance))
                     {
-                        if (enemy.GetComponent<PlayerColorManager>() != null)
+                        if (enemy != null)//repeatable
                         {
-                            if (enemy.GetComponent<PlayerColorManager>().playerID != GetComponent<PlayerColorManager>().playerID)
+                            if ((searchFor[i] != "grabAbleResources" && enemy.GetComponent<PlayerColorManager>() != null) || searchFor[i] == "grabAbleResources" && enemy.GetComponent<GrabAbleResourceManager>() != null)// only attacking repeatable
                             {
-                                nearestEnemy = enemy;
-                                shortestDistance = distanceToEnemy;
+                                if ((searchFor[i] == "grabAbleResources")
+                                    || (searchFor[i] != "spawnAbleResources" && enemy.GetComponent<PlayerColorManager>().playerID != GetComponent<PlayerColorManager>().playerID)
+                                    || (searchFor[i] == "spawnAbleResources" && enemy.GetComponent<PlayerColorManager>().playerID == GetComponent<PlayerColorManager>().playerID)
+                                    )//repeatable execpt of resources / civilian
+                                {
+                                    nearestEnemy = enemy; // repeatable
+                                    shortestDistance = distanceToEnemy; // repeatable
+                                }
                             }
                         }
                     }
                 }
+                if (nearestEnemy != null && shortestDistance <= (range)) // repeatable
+                {
+                    target = nearestEnemy.transform; // repeatable
+                }
             }
-
-            if(nearestEnemy != null && shortestDistance <= range)
-            {
-                target = nearestEnemy.transform;
-            }
-
     }
     // Update is called once per frame
     void Update()

@@ -36,6 +36,7 @@ public class CursorController : MonoBehaviour
     public GameObject hunterObj;
     public GameObject siegeObj;
     public GameObject farmObj;
+    public GameObject plantationObj;
     public ResourceManager resourceManager;
 
     int towerCost = 2;
@@ -45,6 +46,7 @@ public class CursorController : MonoBehaviour
     int hunterCost = 2;
     int siegeCost = 2;
     int bariccadeCost = 2;
+    int plantationCost = 2;
     public int collidersWithRef;
 
     void Start()
@@ -83,6 +85,19 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                         case 1:
+                            if (resourceManager.wood >= plantationCost && collidersWithRef <= 0)
+                            {
+                                AC_BuildObject.Play();
+                                GameObject spawnPlantationObj = Instantiate(plantationObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnPlantationObj.GetComponent<PlayerColorManager>().playerID = playerID;
+                                spawnPlantationObj.GetComponent<PlayerColorManager>().SetColor();
+                                resourceManager.wood = resourceManager.wood - plantationCost;
+                                resourceManager.ChangeUI();
+                            }
+                            else
+                            {
+                                AC_CancelBuild.Play();
+                            }
                             break;
                         case 2:
                             if (resourceManager.wood >= bariccadeCost && collidersWithRef <= 0)

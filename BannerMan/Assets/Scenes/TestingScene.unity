@@ -2443,6 +2443,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2386170125322362361, guid: 6d15d477eccf06945bf3a7e0dbfd9e86,
         type: 3}
+    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
+        type: 3}
+      propertyPath: plantationObj
+      value: 
+      objectReference: {fileID: 6072299871186085697, guid: b68ece5ef4924144aae00b593d3aa335,
+        type: 3}
     - target: {fileID: 4591008606718123518, guid: 1bcbf623d052b7844820e9f57ce28836,
         type: 3}
       propertyPath: m_TagString
