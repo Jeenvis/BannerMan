@@ -82,20 +82,20 @@ public class UnitController : MonoBehaviour
     }
     void UpdateTargetWarrior()          //RETHINK IF I WANT UNITS TO EXPLORE WHEN THERE IS NOTHING IN SIGHT OR TO STAY PUT UNTIL AN ENEMY COMES INTO SIGHT
     {
-        string[] searchForTargetTags = new string[] { enemyTag};
-        string[] searchForTargetTasks = new string[] { "unitsAndBuildings" };
+        string[] searchForTargetTags = new string[] { enemyTag, enemyTag };
+        string[] searchForTargetTasks = new string[] { "bariccades", "unitsAndBuildings" };
         SearchForTarget(searchForTargetTags, searchForTargetTasks);
     }
     void UpdateTargetHunter()           //RETHINK IF I WANT UNITS TO EXPLORE WHEN THERE IS NOTHING IN SIGHT OR TO STAY PUT UNTIL AN ENEMY COMES INTO SIGHT
     {
-        string[] searchForTargetTags = new string[] { enemyTag, enemyTag };
-        string[] searchForTargetTasks = new string[] { "units", "unitsAndBuildings" };
+        string[] searchForTargetTags = new string[] { enemyTag, enemyTag, enemyTag };
+        string[] searchForTargetTasks = new string[] { "bariccades", "units", "unitsAndBuildings" };
         SearchForTarget(searchForTargetTags, searchForTargetTasks);
     }
     void UpdateTargetSiege()            //RETHINK IF I WANT UNITS TO EXPLORE WHEN THERE IS NOTHING IN SIGHT OR TO STAY PUT UNTIL AN ENEMY COMES INTO SIGHT
     {
-        string[] searchForTargetTags = new string[] { enemyTag, enemyTag };
-        string[] searchForTargetTasks = new string[] { "buildings", "unitsAndBuildings" };
+        string[] searchForTargetTags = new string[] { enemyTag, enemyTag, enemyTag };
+        string[] searchForTargetTasks = new string[] { "bariccades","buildings", "unitsAndBuildings" };
         SearchForTarget(searchForTargetTags, searchForTargetTasks);
     }
     void UpdateTargetCivilian()         
@@ -192,7 +192,7 @@ public class UnitController : MonoBehaviour
                 {
                     float distanceToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
                     //^Repeatable part
-                    if ((searchFor[i] == "bariccades" && distanceToEnemy < shortestDistance && distanceToEnemy < sight)
+                    if ((searchFor[i] == "bariccades" && distanceToEnemy < shortestDistance && distanceToEnemy < sight && enemy.GetComponent<BariccadeManager>()!= null)
                         || (searchFor[i] == "buildings" && distanceToEnemy < shortestDistance && (enemy.GetComponent<TowerManager>() != null || enemy.GetComponent<ResourceSpawnManager>() != null || enemy.GetComponent<DummyManager>() != null || enemy.GetComponent<CastleManager>() != null) && distanceToEnemy < sight)
                         || (searchFor[i] == "units" && distanceToEnemy < shortestDistance && enemy.GetComponent<UnitController>() != null && distanceToEnemy < sight)
                         || (searchFor[i] == "unitsAndBuildings" && distanceToEnemy < shortestDistance && distanceToEnemy < sight)
