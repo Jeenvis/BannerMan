@@ -34,7 +34,7 @@ public class ProjectileController : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        transform.LookAt(target);
         Vector3 dir = (target.position + new Vector3(0,1,0))- transform.position;
         float distanceThisFrame = speed * (Time.deltaTime);
 

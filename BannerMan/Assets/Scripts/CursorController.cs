@@ -18,6 +18,7 @@ public class CursorController : MonoBehaviour
     public AudioSource AC_GrabResource;
     public GameObject buildMenu;
     public GameObject trainMenu;
+    public SceneManager sceneManager;
     public GameObject[] buildMenuOptions;
     public GameObject[] trainMenuOptions;
     public Animator buildRef;
@@ -49,6 +50,12 @@ public class CursorController : MonoBehaviour
     int plantationCost = 2;
     public int collidersWithRef;
 
+    public bool inUnitBoundingBox;
+    public bool inBuildingBoundingBox;
+    public Material circleCursor;
+    public Material squareCursor;
+    public Material crossCursor;
+
     void Start()
     {
         walkSpeed = 10;
@@ -70,7 +77,7 @@ public class CursorController : MonoBehaviour
                     switch (buildMenuOptionSelection)
                     {
                         case 0:
-                            if (resourceManager.wood >= farmCost && collidersWithRef <= 0)
+                            if (resourceManager.wood >= farmCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnFarmObj = Instantiate(farmObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -85,7 +92,7 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                         case 1:
-                            if (resourceManager.wood >= plantationCost && collidersWithRef <= 0)
+                            if (resourceManager.wood >= plantationCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnPlantationObj = Instantiate(plantationObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -100,7 +107,7 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                         case 2:
-                            if (resourceManager.wood >= bariccadeCost && collidersWithRef <= 0)
+                            if (resourceManager.wood >= bariccadeCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnBarricadeObj = Instantiate(bariccadeObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -111,7 +118,7 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                         case 3:
-                            if (resourceManager.wood >= towerCost && collidersWithRef <= 0)
+                            if (resourceManager.wood >= towerCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnTowerObj = Instantiate(towerObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -138,7 +145,7 @@ public class CursorController : MonoBehaviour
                         switch (trainMenuOptionSelection)
                         {
                             case 0:
-                            if (resourceManager.food >= civilianCost)
+                            if (resourceManager.food >= civilianCost && inUnitBoundingBox == true)
                             {
                                 AC_TrainObject.Play();
                                 GameObject spawnCivilianObj = Instantiate(civilianObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -155,7 +162,7 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                             case 1:
-                                if (resourceManager.food >= warriorCost)
+                                if (resourceManager.food >= warriorCost && inUnitBoundingBox == true)
                                 {
                                     AC_TrainObject.Play();
                                     GameObject spawnWarriorObj = Instantiate(warriorObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -171,7 +178,7 @@ public class CursorController : MonoBehaviour
                                 }
                                 break;
                             case 2:
-                            if (resourceManager.food >= hunterCost)
+                            if (resourceManager.food >= hunterCost && inUnitBoundingBox == true)
                             {
                                 AC_TrainObject.Play();
                                 GameObject spawnHunterObj = Instantiate(hunterObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
@@ -187,7 +194,7 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                             case 3:
-                            if (resourceManager.food >= siegeCost)
+                            if (resourceManager.food >= siegeCost && inUnitBoundingBox == true)
                             {
                                 AC_TrainObject.Play();
                                 GameObject spawnSiegeObj = Instantiate(siegeObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
