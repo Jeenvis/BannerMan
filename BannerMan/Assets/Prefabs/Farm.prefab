@@ -109,9 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e51be8643f90d374e82309ed93ea5f1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  growthTime: 3
+  growthTime: 10
   resourceAmount: 1
   resourceType: food
+  resourceActive: 0
   myResource: {fileID: 7512865083412580277}
 --- !u!65 &3989496786351954738
 BoxCollider:
@@ -166,10 +167,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6072299871186320225}
     m_Modifications:
-    - target: {fileID: 100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
-      propertyPath: m_Name
-      value: ResourceFood
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -225,6 +222,10 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
+      propertyPath: m_Name
+      value: ResourceFood
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}

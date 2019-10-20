@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 6548964520234069335}
   - component: {fileID: 6661086952698480172}
   - component: {fileID: 8337735232506866266}
+  - component: {fileID: 6565053595972871092}
   m_Layer: 0
   m_Name: Warrior
-  m_TagString: Untagged
+  m_TagString: targetObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   enemyTag: targetObject
+  resourceTag: grabAbleResource
   walkTarget: {x: 0, y: 0, z: 0}
   doneWalking: 0
   sight: 5
@@ -118,8 +120,10 @@ MonoBehaviour:
   impactEffect: {fileID: 4147871138764769808, guid: a51c9fc60aeecdb49a49da5c672153e7,
     type: 3}
   projectilePrefab: {fileID: 0}
+  resourceManager: {fileID: 0}
   AC_projectileHit: {fileID: 0}
   AC_projectileLaunch: {fileID: 0}
+  AC_GrabResource: {fileID: 0}
   attackSpeed: 0.5
   unitType: Warrior
 --- !u!136 &8337735232506866266
@@ -136,3 +140,17 @@ CapsuleCollider:
   m_Height: 0.7095629
   m_Direction: 1
   m_Center: {x: 0, y: 0.35478145, z: 0}
+--- !u!114 &6565053595972871092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540259287030924774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 291923fabd0273b48b8ef9210d880e1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthTotal: 2
+  healthCurrent: 0
