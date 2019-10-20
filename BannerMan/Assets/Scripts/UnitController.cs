@@ -370,7 +370,7 @@ public class UnitController : MonoBehaviour
                     || (searchFor == "units" && distanceToEnemy < shortestDistance && enemy.GetComponent<UnitController>() != null)
                     || (searchFor == "unitsAndBuildings" && distanceToEnemy < shortestDistance)
                     || (searchFor == "grabAbleResources" && distanceToEnemy < shortestDistance && enemy.GetComponent<GrabAbleResourceManager>() != null)
-                    || (searchFor == "spawnAbleResources" && distanceToEnemy < shortestDistance && enemy.GetComponent<ResourceSpawnManager>() != null && enemy.GetComponent<ResourceSpawnManager>().resourceActive == true){ 
+                    || (searchFor == "spawnAbleResources" && distanceToEnemy < shortestDistance && enemy.GetComponent<ResourceSpawnManager>() != null && enemy.GetComponent<ResourceSpawnManager>().resourceActive == true)){ 
                     if (enemy != null)//repeatable
                     {
                         if (enemy.GetComponent<PlayerColorManager>() != null)//repeatable
