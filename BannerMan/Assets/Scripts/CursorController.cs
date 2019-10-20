@@ -30,6 +30,8 @@ public class CursorController : MonoBehaviour
     bool buildTriggerActivation = false;
     bool trainTriggerActivation = false;
     public GameObject towerObj;
+    public GameObject bariccadeObj;
+    public GameObject civilianObj;
     public GameObject warriorObj;
     public GameObject hunterObj;
     public GameObject siegeObj;
@@ -39,8 +41,10 @@ public class CursorController : MonoBehaviour
     int towerCost = 2;
     int farmCost = 2;
     int warriorCost = 2;
+    int civilianCost = 2;
     int hunterCost = 2;
     int siegeCost = 2;
+    int bariccadeCost = 2;
     public int collidersWithRef;
 
     void Start()
@@ -81,7 +85,15 @@ public class CursorController : MonoBehaviour
                         case 1:
                             break;
                         case 2:
-                            AC_BuildObject.Play();
+                            if (resourceManager.wood >= bariccadeCost && collidersWithRef <= 0)
+                            {
+                                AC_BuildObject.Play();
+                                GameObject spawnBarricadeObj = Instantiate(bariccadeObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnBarricadeObj.GetComponent<PlayerColorManager>().playerID = playerID;
+                                spawnBarricadeObj.GetComponent<PlayerColorManager>().SetColor();
+                                resourceManager.wood = resourceManager.wood - bariccadeCost;
+                                resourceManager.ChangeUI();
+                            }
                             break;
                         case 3:
                             if (resourceManager.wood >= towerCost && collidersWithRef <= 0)
@@ -111,7 +123,22 @@ public class CursorController : MonoBehaviour
                         switch (trainMenuOptionSelection)
                         {
                             case 0:
-                                break;
+                            if (resourceManager.food >= civilianCost)
+                            {
+                                AC_TrainObject.Play();
+                                GameObject spawnCivilianObj = Instantiate(civilianObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnCivilianObj.GetComponent<PlayerColorManager>().playerID = playerID;
+                                spawnCivilianObj.GetComponent<PlayerColorManager>().SetColor();
+                                spawnCivilianObj.GetComponent<UnitController>().walkTarget = transform.position;
+                                spawnCivilianObj.GetComponent<UnitController>().resourceManager = resourceManager;
+                                resourceManager.food = resourceManager.food - civilianCost;
+                                resourceManager.ChangeUI();
+                            }
+                            else
+                            {
+                                AC_CancelBuild.Play();
+                            }
+                            break;
                             case 1:
                                 if (resourceManager.food >= warriorCost)
                                 {

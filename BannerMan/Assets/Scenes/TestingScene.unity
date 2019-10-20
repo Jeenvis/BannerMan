@@ -2309,5 +2309,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 540259287030924774, guid: 9f588d7ce9daab246a8b81ea84ced5bc,
         type: 3}
+    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
+        type: 3}
+      propertyPath: civilianObj
+      value: 
+      objectReference: {fileID: 540259287030924774, guid: 5d671b2e10077324eba0cbf8b21bfa05,
+        type: 3}
+    - target: {fileID: 1726656378963388037, guid: 1bcbf623d052b7844820e9f57ce28836,
+        type: 3}
+      propertyPath: bariccadeObj
+      value: 
+      objectReference: {fileID: 2386170125322362361, guid: 6d15d477eccf06945bf3a7e0dbfd9e86,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bcbf623d052b7844820e9f57ce28836, type: 3}

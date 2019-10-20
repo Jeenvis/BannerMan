@@ -8,7 +8,7 @@ public class ResourceSpawnManager : MonoBehaviour
     public float growthTime;
     public int resourceAmount;
     public string resourceType;
-    bool resourceActive = false;
+    public bool resourceActive = false;
     public GameObject myResource;
     // Start is called before the first frame update
     void Start()
