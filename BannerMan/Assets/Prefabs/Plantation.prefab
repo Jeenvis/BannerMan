@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9101994972887149724}
   - component: {fileID: 3989496786351954738}
   - component: {fileID: 3213893218028097556}
+  - component: {fileID: 8958228902092835287}
   m_Layer: 0
   m_Name: Plantation
   m_TagString: targetObject
@@ -141,6 +142,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthTotal: 2
   healthCurrent: 0
+--- !u!114 &8958228902092835287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6072299871186085697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61165eea5dc097e49815f6ff9176ef6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  attack: 0
+  attackSpeed: 0
+  movementSpeed: 0
+  range: 0
+  health: 0
 --- !u!95 &6856406850192534267
 Animator:
   serializedVersion: 3
@@ -240,6 +259,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6072299871186320225}
     m_Modifications:
+    - target: {fileID: 100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
+      propertyPath: m_Name
+      value: ResourceFood
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -295,10 +318,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
-      propertyPath: m_Name
-      value: ResourceFood
       objectReference: {fileID: 0}
     - target: {fileID: 3300000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
       propertyPath: m_Mesh

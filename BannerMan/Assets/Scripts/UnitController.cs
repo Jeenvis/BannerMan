@@ -181,7 +181,7 @@ public class UnitController : MonoBehaviour
         {
             for (int i = 0; i < searchFor.Length; i++)
             {
-                if(target != null)
+                if(target != null && i > 0)
                 {
                     return;
                 }

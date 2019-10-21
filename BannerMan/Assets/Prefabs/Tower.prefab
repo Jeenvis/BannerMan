@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 5101392731242000020}
   - component: {fileID: 8490716157727166706}
   - component: {fileID: 7906173239962874010}
+  - component: {fileID: 3876704292589487763}
   m_Layer: 0
   m_Name: Tower
   m_TagString: targetObject
@@ -272,6 +273,24 @@ MonoBehaviour:
   projectileSpawn: {fileID: 338296207251517515}
   AC_projectileLaunch: {fileID: 4634274729256738839}
   AC_projectileHit: {fileID: 1757918302650595011}
+--- !u!114 &3876704292589487763
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2386170125322362361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61165eea5dc097e49815f6ff9176ef6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: 
+  attack: 0
+  attackSpeed: 0
+  movementSpeed: 0
+  range: 0
+  health: 0
 --- !u!1 &5259898668634355137
 GameObject:
   m_ObjectHideFlags: 0

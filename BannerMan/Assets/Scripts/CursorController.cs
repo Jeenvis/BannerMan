@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CursorController : MonoBehaviour
 {
@@ -56,13 +57,28 @@ public class CursorController : MonoBehaviour
     public Material squareCursor;
     public Material crossCursor;
 
+    public GameObject selectedUnit;
+    public GameObject hooveredUnit;
+    public Text hooverUnitName;
+    public Text hooverUnitAttack;
+    public Text hooverUnitAttackSpeed;
+    public Text hooverUnitHealth;
+    public Text hooverUnitRange;
+    public Text hooverUnitMovementSpeed;
+
     void Start()
     {
         walkSpeed = 10;
+        GetComponent<LineRenderer>().SetColors(GetComponent<PlayerColorManager>().myColor, GetComponent<PlayerColorManager>().myColor);
     }
 
     void FixedUpdate()
     {
+        if (selectedUnit != null && GetComponent<LineRenderer>() != null)
+        {
+            GetComponent<LineRenderer>().SetPosition(0, transform.position);
+            GetComponent<LineRenderer>().SetPosition(1, selectedUnit.transform.position);
+        }
         curSpeed = walkSpeed;
         maxSpeed = curSpeed;
         // Move senteces
@@ -304,6 +320,28 @@ public class CursorController : MonoBehaviour
             {
                 GatherResource();
             }
+            if (selectedUnit != null)
+            {
+                selectedUnit.GetComponent<UnitController>().walkTarget = transform.position;
+                selectedUnit.GetComponent<UnitController>().doneWalking = false;
+                GetComponent<LineRenderer>().enabled = false;
+                hooveredUnit = null;
+                selectedUnit = null;
+            }
+            if (hooveredUnit != null && hooveredUnit.GetComponent<UnitController>() != null && selectedUnit == null)
+            {
+                selectedUnit = hooveredUnit;
+                GetComponent<LineRenderer>().enabled = true;
+            }
+            
+        }
+        if (Input.GetButtonDown("Joy1_BButton"))
+        {
+            if (selectedUnit != null)
+            {
+                selectedUnit = null;
+                GetComponent<LineRenderer>().enabled = false;
+            }
         }
     }
     void BuildTrigger()
@@ -326,12 +364,31 @@ public class CursorController : MonoBehaviour
         {
             resourceTarget = col.gameObject;
         }
+        if (col.gameObject.GetComponent<HooverData>() != null && selectedUnit == null)
+        {
+            hooverUnitName.text = col.gameObject.GetComponent<HooverData>().name.ToString();
+            hooverUnitAttack.text = col.gameObject.GetComponent<HooverData>().attack.ToString();
+            hooverUnitAttackSpeed.text = col.gameObject.GetComponent<HooverData>().attackSpeed.ToString();
+            hooverUnitMovementSpeed.text = col.gameObject.GetComponent<HooverData>().movementSpeed.ToString();
+            hooverUnitRange.text = col.gameObject.GetComponent<HooverData>().range.ToString();
+            hooverUnitHealth.text = col.gameObject.GetComponent<HooverData>().health.ToString();
+            hooveredUnit = col.gameObject;
+        }
     }
     private void OnTriggerExit(Collider col)
     {
         if(resourceTarget == col.gameObject)
         {
             resourceTarget = null;
+        }
+        if (col.gameObject.GetComponent<HooverData>() != null && selectedUnit == null)
+        {
+            hooverUnitName.text = "";
+            hooverUnitAttack.text = "";
+            hooverUnitAttackSpeed.text = "";
+            hooverUnitMovementSpeed.text = "";
+            hooverUnitRange.text = "";
+            hooverUnitHealth.text = "";
         }
     }
     void GatherResource()

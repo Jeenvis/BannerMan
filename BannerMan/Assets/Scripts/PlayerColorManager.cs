@@ -34,7 +34,7 @@ public class PlayerColorManager : MonoBehaviour
                 case 4:
                     GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor4);
                     break;
-                    dedault:
+                    default:
                     GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     break;
             }
