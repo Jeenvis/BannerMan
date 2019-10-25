@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HooverData : MonoBehaviour
 {
     public string name;
+    public Sprite avatar;
     public int attack;
     public float attackSpeed;
     public float movementSpeed;
