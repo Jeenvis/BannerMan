@@ -141,6 +141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthTotal: 2
   healthCurrent: 0
+  deathEffect: {fileID: 160018, guid: 43cc1a347ac43cd498e91db9fb766337, type: 3}
 --- !u!95 &6856406850192534267
 Animator:
   serializedVersion: 3
@@ -167,6 +168,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6072299871186320225}
     m_Modifications:
+    - target: {fileID: 100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
+      propertyPath: m_Name
+      value: ResourceFood
+      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -222,10 +227,6 @@ PrefabInstance:
     - target: {fileID: 400000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
       propertyPath: m_LocalScale.x
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}
-      propertyPath: m_Name
-      value: ResourceFood
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ea59f7b8a6279442abd3196b57140e6, type: 3}

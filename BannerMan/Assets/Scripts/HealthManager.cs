@@ -6,6 +6,7 @@ public class HealthManager : MonoBehaviour
 {
     public int healthTotal = 1;
     public int healthCurrent;
+    public GameObject deathEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +23,10 @@ public class HealthManager : MonoBehaviour
         healthCurrent = healthCurrent - damageTaken;
         if (healthCurrent <= 0)
         {
+            if(deathEffect != null)
+            {
+                Instantiate(deathEffect, transform.position, transform.rotation);
+            }
             Destroy(gameObject);
         }
     }

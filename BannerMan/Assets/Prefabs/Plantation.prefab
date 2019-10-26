@@ -142,6 +142,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthTotal: 2
   healthCurrent: 0
+  deathEffect: {fileID: 160018, guid: 43cc1a347ac43cd498e91db9fb766337, type: 3}
 --- !u!114 &8958228902092835287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: 
+  avatar: {fileID: 0}
   attack: 0
   attackSpeed: 0
   movementSpeed: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerColorManager : MonoBehaviour
 {
+    public GameObject myMaterial;
     public int playerID;
     public GameObject ColorManager;
     public Color myColor;
@@ -11,6 +12,10 @@ public class PlayerColorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(myMaterial == null)
+        {
+            myMaterial = this.gameObject;
+        }
         SetColor();
     }
 
@@ -23,19 +28,19 @@ public class PlayerColorManager : MonoBehaviour
             switch (playerID)
             {
                 case 1:
-                    GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor1);
+                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor1);
                     break;
                 case 2:
-                    GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor2);
+                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor2);
                     break;
                 case 3:
-                    GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor3);
+                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor3);
                     break;
                 case 4:
-                    GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor4);
+                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor4);
                     break;
                     default:
-                    GetComponent<Renderer>().material.SetColor("_Color", Color.white);
+                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     break;
             }
         }
@@ -43,6 +48,6 @@ public class PlayerColorManager : MonoBehaviour
         {
             Debug.Log(this.name + " can't find the color manager");
         }
-        myColor = GetComponent<Renderer>().material.color;
+        myColor = myMaterial.GetComponent<Renderer>().material.color;
     }
 }

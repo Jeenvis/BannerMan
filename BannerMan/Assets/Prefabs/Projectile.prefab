@@ -107,11 +107,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfdd1404962f8684289c1985c6592cdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gOTarget: {fileID: 0}
   parentTower: {fileID: 0}
   parentUnit: {fileID: 0}
   impactEffect: {fileID: 4147871138764769808, guid: a51c9fc60aeecdb49a49da5c672153e7,
     type: 3}
-  speed: 6
+  speed: 30
   damage: 1
 --- !u!96 &1814359600074825041
 TrailRenderer:
@@ -151,22 +152,31 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.1
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 1
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.22973633
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.15032864
+        value: 1
+        inSlope: 0.033611093
+        outSlope: 0.033611093
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.18392469
       - serializedVersion: 3
         time: 1
         value: 0
@@ -182,7 +192,7 @@ TrailRenderer:
     colorGradient:
       serializedVersion: 2
       key0: {r: 1, g: 1, b: 1, a: 1}
-      key1: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
