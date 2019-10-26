@@ -109,7 +109,7 @@ public class UnitController : MonoBehaviour
         if (target != null)
         {
             float dist = Vector3.Distance(transform.position, target.position);
-            if (dist <= range)
+            if (dist <= range && nearestEnemy != null)
             {
                 if (nearestEnemy.GetComponent<HealthManager>() != null)
                 {
