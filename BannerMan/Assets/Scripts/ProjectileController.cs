@@ -6,7 +6,7 @@ public class ProjectileController : MonoBehaviour
 {
 
     private Transform target;
-    private GameObject gOTarget;
+    public GameObject gOTarget;
     public TowerManager parentTower;
     public UnitController parentUnit;
     public GameObject impactEffect;
@@ -52,8 +52,12 @@ public class ProjectileController : MonoBehaviour
     {
         GameObject collisionDust = (GameObject)Instantiate(impactEffect, transform.position + new Vector3(0,1,0), transform.rotation);
         Destroy(collisionDust, 2f);
-        if (gOTarget.GetComponent<HealthManager>() != null) {
-            gOTarget.GetComponent<HealthManager>().TakeDamage(damage);
+        if (gOTarget != null)
+        {
+            if (gOTarget.GetComponent<HealthManager>() != null)
+            {
+                gOTarget.GetComponent<HealthManager>().TakeDamage(damage);
+            }
         }
         if (parentTower != null)
         {

@@ -10,7 +10,7 @@ public class UnitController : MonoBehaviour
     public string enemyTag = "targetObject";
     public string resourceTag = "grabAbleResource";
 
-    private GameObject nearestEnemy;
+    public GameObject nearestEnemy;
     public Vector3 walkTarget;
     public bool doneWalking = false;
     public float sight = 5f;
@@ -124,6 +124,10 @@ public class UnitController : MonoBehaviour
     {
         if (target != null)
         {
+            if(nearestEnemy == null)
+            {
+                nearestEnemy = target.gameObject;
+            }
             GameObject projectileSpawnedPrefab = Instantiate(projectilePrefab, transform.position, transform.rotation) as GameObject;
             AC_projectileLaunch.Play();
             ProjectileController projectile = projectileSpawnedPrefab.GetComponent<ProjectileController>();
