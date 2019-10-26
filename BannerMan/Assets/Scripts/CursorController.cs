@@ -41,6 +41,8 @@ public class CursorController : MonoBehaviour
     public GameObject plantationObj;
     public ResourceManager resourceManager;
 
+    float sensitivity = 0.2f;
+
     int towerCost = 2;
     int farmCost = 2;
     int warriorCost = 2;
@@ -51,6 +53,7 @@ public class CursorController : MonoBehaviour
     int plantationCost = 2;
     public int collidersWithRef;
 
+    public bool playerNotDead = true;
     public bool inUnitBoundingBox;
     public bool inBuildingBoundingBox;
     public Material circleCursor;
@@ -60,6 +63,7 @@ public class CursorController : MonoBehaviour
     public GameObject selectedUnit;
     public GameObject hooveredUnit;
     public Text hooverUnitName;
+    public Image hooverUnitAvatar;
     public Text hooverUnitAttack;
     public Text hooverUnitAttackSpeed;
     public Text hooverUnitHealth;
@@ -82,8 +86,13 @@ public class CursorController : MonoBehaviour
         curSpeed = walkSpeed;
         maxSpeed = curSpeed;
         // Move senteces
-        rb.velocity = new Vector3(Mathf.Lerp(0, Input.GetAxis("Horizontal") * curSpeed, 0.8f), 0, Mathf.Lerp(0, Input.GetAxis("Vertical") * curSpeed, 0.8f));
-        if (Input.GetAxisRaw("Joy1_3thAxis") == 0)
+        if (playerID == 1) {
+            rb.velocity = new Vector3(Mathf.Lerp(0, Input.GetAxis("Horizontal1") * curSpeed, 0.8f), 0, Mathf.Lerp(0, Input.GetAxis("Vertical1") * curSpeed, 0.8f));
+        }
+        if(playerID == 2) { 
+            rb.velocity = new Vector3(Mathf.Lerp(0, Input.GetAxis("Horizontal2") * curSpeed, 0.8f), 0, Mathf.Lerp(0, Input.GetAxis("Vertical2") * curSpeed, 0.8f));
+        }
+        if ((Input.GetAxisRaw("Joy1_3thAxis") == 0 && playerID == 1) || (Input.GetAxisRaw("Joy2_3thAxis") == 0 && playerID == 2) && playerNotDead == true)
         {
             if (buildTriggerActivation == true)
             {
@@ -234,35 +243,38 @@ public class CursorController : MonoBehaviour
                 }
             collidersWithRef = 0;
         }
-        if (Input.GetAxisRaw("Joy1_3thAxis") < 0 && buildTriggerActivation == false)
+        if ((Input.GetAxisRaw("Joy1_3thAxis") < -sensitivity && buildTriggerActivation == false && playerID == 1) || (Input.GetAxisRaw("Joy2_3thAxis") < -sensitivity && buildTriggerActivation == false && playerID == 2))
         {
             BuildTrigger();
             buildTriggerActivation = true;
         }
-        if (Input.GetAxisRaw("Joy1_3thAxis") > 0 && trainTriggerActivation == false)
+        if ((Input.GetAxisRaw("Joy1_3thAxis") > sensitivity && trainTriggerActivation == false && playerID == 1) || (Input.GetAxisRaw("Joy2_3thAxis") > sensitivity && trainTriggerActivation == false && playerID == 2))
         {
             TrainTrigger();
             trainTriggerActivation = true;
         }
         if (buildTriggerActivation == true)
         {
-            if (Input.GetAxisRaw("Joy1_secondHorizontal") < -0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondHorizontal") < -sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondHorizontal") < -sensitivity && playerID == 2))
             {
                 buildMenuOptionSelection = 3;
             }
-            if (Input.GetAxisRaw("Joy1_secondHorizontal") > 0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondHorizontal") > sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondHorizontal") > sensitivity && playerID == 2))
             {
                 buildMenuOptionSelection = 1;
             }
-            if (Input.GetAxisRaw("Joy1_secondVertical") < -0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondVertical") < -sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondVertical") < -sensitivity && playerID == 2))
             {
                 buildMenuOptionSelection = 0;
             }
-            if (Input.GetAxisRaw("Joy1_secondVertical") > 0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondVertical") > sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondVertical") > sensitivity && playerID == 2))
             {
                 buildMenuOptionSelection = 2;
             }
-            if(Input.GetAxisRaw("Joy1_secondVertical") == 0 && Input.GetAxisRaw("Joy1_secondHorizontal") == 0)
+            if((Input.GetAxisRaw("Joy1_secondVertical")  < sensitivity && Input.GetAxisRaw("Joy1_secondVertical") > -sensitivity && 
+                Input.GetAxisRaw("Joy1_secondHorizontal")  < sensitivity && Input.GetAxisRaw("Joy1_secondHorizontal") > -sensitivity && playerID == 1) || 
+                (Input.GetAxisRaw("Joy2_secondVertical") < sensitivity && (Input.GetAxisRaw("Joy2_secondVertical") > -sensitivity && 
+                Input.GetAxisRaw("Joy2_secondHorizontal")  <sensitivity && (Input.GetAxisRaw("Joy2_secondHorizontal") >- sensitivity) && playerID == 2)))
             {
                 buildMenuOptionSelection = -1;
             }
@@ -281,23 +293,23 @@ public class CursorController : MonoBehaviour
         }
         if (trainTriggerActivation == true)
         {
-            if (Input.GetAxisRaw("Joy1_secondHorizontal") < -0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondHorizontal") < -sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondHorizontal") < -sensitivity && playerID == 2))
             {
                 trainMenuOptionSelection = 3;
             }
-            if (Input.GetAxisRaw("Joy1_secondHorizontal") > 0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondHorizontal") > sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondHorizontal") > sensitivity && playerID == 2))
             {
                 trainMenuOptionSelection = 1;
             }
-            if (Input.GetAxisRaw("Joy1_secondVertical") < -0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondVertical") < -sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondVertical") < -sensitivity && playerID == 2))
             {
                 trainMenuOptionSelection = 0;
             }
-            if (Input.GetAxisRaw("Joy1_secondVertical") > 0.2f)
+            if ((Input.GetAxisRaw("Joy1_secondVertical") > sensitivity && playerID == 1) || (Input.GetAxisRaw("Joy2_secondVertical") > sensitivity && playerID == 2))
             {
                 trainMenuOptionSelection = 2;
             }
-            if (Input.GetAxisRaw("Joy1_secondVertical") == 0 && Input.GetAxisRaw("Joy1_secondHorizontal") == 0)
+            if ((Input.GetAxisRaw("Joy1_secondVertical") ==0 && Input.GetAxisRaw("Joy1_secondHorizontal")  ==0 && playerID == 1) || (Input.GetAxisRaw("Joy2_secondVertical") ==0 && Input.GetAxisRaw("Joy2_secondHorizontal") ==0 && playerID == 2))
             {
                 trainMenuOptionSelection = -1;
             }
@@ -314,7 +326,7 @@ public class CursorController : MonoBehaviour
                 }
             }
         }
-        if (Input.GetButtonDown("Joy1_AButton"))
+        if ((Input.GetButtonDown("Joy1_AButton") && playerID == 1) || (Input.GetButtonDown("Joy2_AButton") && playerID == 2))
         {
             if(resourceTarget != null)
             {
@@ -328,14 +340,14 @@ public class CursorController : MonoBehaviour
                 hooveredUnit = null;
                 selectedUnit = null;
             }
-            if (hooveredUnit != null && hooveredUnit.GetComponent<UnitController>() != null && selectedUnit == null)
+            if (hooveredUnit != null && hooveredUnit.GetComponent<UnitController>() != null && selectedUnit == null && hooveredUnit.GetComponent<PlayerColorManager>().playerID == playerID)
             {
                 selectedUnit = hooveredUnit;
                 GetComponent<LineRenderer>().enabled = true;
             }
             
         }
-        if (Input.GetButtonDown("Joy1_BButton"))
+        if ((Input.GetButtonDown("Joy1_BButton") && playerID == 1) || (Input.GetButtonDown("Joy2_BButton") && playerID == 2))
         {
             if (selectedUnit != null)
             {
@@ -367,6 +379,7 @@ public class CursorController : MonoBehaviour
         if (col.gameObject.GetComponent<HooverData>() != null && selectedUnit == null)
         {
             hooverUnitName.text = col.gameObject.GetComponent<HooverData>().name.ToString();
+            hooverUnitAvatar.sprite = col.gameObject.GetComponent<HooverData>().avatar;
             hooverUnitAttack.text = col.gameObject.GetComponent<HooverData>().attack.ToString();
             hooverUnitAttackSpeed.text = col.gameObject.GetComponent<HooverData>().attackSpeed.ToString();
             hooverUnitMovementSpeed.text = col.gameObject.GetComponent<HooverData>().movementSpeed.ToString();
