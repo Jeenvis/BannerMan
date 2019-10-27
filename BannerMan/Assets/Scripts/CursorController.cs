@@ -41,16 +41,16 @@ public class CursorController : MonoBehaviour
     public GameObject plantationObj;
     public ResourceManager resourceManager;
 
-    float sensitivity = 0.2f;
+    float sensitivity = 0.1f;
 
-    int towerCost = 2;
-    int farmCost = 2;
-    int warriorCost = 2;
-    int civilianCost = 2;
-    int hunterCost = 2;
-    int siegeCost = 2;
-    int bariccadeCost = 2;
-    int plantationCost = 2;
+    private int towerCost;
+    private int farmCost;
+    private int warriorCost;
+    private int civilianCost;
+    private int hunterCost;
+    private int siegeCost;
+    private int bariccadeCost;
+    private int plantationCost;
     public int collidersWithRef;
 
     public bool playerNotDead = true;
@@ -69,15 +69,39 @@ public class CursorController : MonoBehaviour
     public Text hooverUnitHealth;
     public Text hooverUnitRange;
     public Text hooverUnitMovementSpeed;
+    public GameObject hooverObject;
+
+    public Factions myFaction;
+    private Faction faction;
 
     void Start()
     {
-        walkSpeed = 10;
-        GetComponent<LineRenderer>().SetColors(GetComponent<PlayerColorManager>().myColor, GetComponent<PlayerColorManager>().myColor);
+        
+        //GetComponent<LineRenderer>().SetColors(GetComponent<PlayerColorManager>().myColor, GetComponent<PlayerColorManager>().myColor);
+        faction = FactionHelper.GetFaction(myFaction);
+
+        walkSpeed = faction.GetCursorSpeed();
+
+        civilianCost = faction.GetCivilianCost();
+        warriorCost = faction.GetWarriorCost();
+        hunterCost = faction.GetHunterCost();
+        siegeCost = faction.GetSiegeCost();
+
+        farmCost = faction.GetFarmCost();
+        plantationCost = faction.GetPlantationCost();
+        bariccadeCost = faction.GetBarricadeCost();
+        towerCost = faction.GetTowerCost();
     }
 
     void FixedUpdate()
     {
+        if (hooverObject != null)
+        {
+            if (""+hooverObject.GetComponent<HooverData>().health != hooverUnitHealth.text)
+            {
+                FillHooverInfo();
+            }
+        }
         if (selectedUnit != null && GetComponent<LineRenderer>() != null)
         {
             GetComponent<LineRenderer>().SetPosition(0, transform.position);
@@ -102,10 +126,18 @@ public class CursorController : MonoBehaviour
                     switch (buildMenuOptionSelection)
                     {
                         case 0:
+                            farmCost = faction.GetFarmCost();
                             if (resourceManager.wood >= farmCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnFarmObj = Instantiate(farmObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+
+                                spawnFarmObj.GetComponent<HealthManager>().healthTotal = faction.GetFarmHealth();
+
+                                spawnFarmObj.GetComponent<ResourceSpawnManager>().growthTime = faction.GetFarmGrowthTime();
+                                spawnFarmObj.GetComponent<ResourceSpawnManager>().resourceAmount = faction.GetFarmResourceAmount();
+                                spawnFarmObj.GetComponent<ResourceSpawnManager>().resourceType = faction.GetFarmResourceType();
+
                                 spawnFarmObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                 spawnFarmObj.GetComponent<PlayerColorManager>().SetColor();
                                 resourceManager.wood = resourceManager.wood - farmCost;
@@ -113,14 +145,23 @@ public class CursorController : MonoBehaviour
                             }
                             else
                             {
+                                Debug.Log("farmcost: " + farmCost + ", collidersWithRef: " + collidersWithRef + ", inBuildingBoundingBox: " + inBuildingBoundingBox);
                                 AC_CancelBuild.Play();
                             }
                             break;
                         case 1:
+                            plantationCost = faction.GetPlantationCost();
                             if (resourceManager.wood >= plantationCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnPlantationObj = Instantiate(plantationObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+
+                                spawnPlantationObj.GetComponent<HealthManager>().healthTotal = faction.GetPlantationHealth();
+
+                                spawnPlantationObj.GetComponent<ResourceSpawnManager>().growthTime = faction.GetPlantationGrowthTime();
+                                spawnPlantationObj.GetComponent<ResourceSpawnManager>().resourceAmount = faction.GetPlantationResourceAmount();
+                                spawnPlantationObj.GetComponent<ResourceSpawnManager>().resourceType = faction.GetPlantationResourceType();
+
                                 spawnPlantationObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                 spawnPlantationObj.GetComponent<PlayerColorManager>().SetColor();
                                 resourceManager.wood = resourceManager.wood - plantationCost;
@@ -132,10 +173,14 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                         case 2:
+                            bariccadeCost = faction.GetBarricadeCost();
                             if (resourceManager.wood >= bariccadeCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnBarricadeObj = Instantiate(bariccadeObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+
+                                spawnBarricadeObj.GetComponent<HealthManager>().healthTotal = faction.GetBarricadeHealth();
+
                                 spawnBarricadeObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                 spawnBarricadeObj.GetComponent<PlayerColorManager>().SetColor();
                                 resourceManager.wood = resourceManager.wood - bariccadeCost;
@@ -143,10 +188,17 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                         case 3:
+                            towerCost = faction.GetTowerCost();
                             if (resourceManager.wood >= towerCost && collidersWithRef <= 0 && inBuildingBoundingBox == true)
                             {
                                 AC_BuildObject.Play();
                                 GameObject spawnTowerObj = Instantiate(towerObj, transform.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+
+                                spawnTowerObj.GetComponent<HealthManager>().healthTotal = faction.GetTowerHealth();
+                                spawnTowerObj.GetComponent<TowerManager>().range = faction.GetTowerRange();
+                                spawnTowerObj.GetComponent<TowerManager>().fireRate = faction.GetTowerAttackSpeed();
+                                spawnTowerObj.GetComponent<TowerManager>().towerAttack = faction.GetTowerAttack();
+
                                 spawnTowerObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                 spawnTowerObj.GetComponent<PlayerColorManager>().SetColor();
                                 resourceManager.wood = resourceManager.wood - towerCost;
@@ -170,10 +222,18 @@ public class CursorController : MonoBehaviour
                         switch (trainMenuOptionSelection)
                         {
                             case 0:
+                            civilianCost = faction.GetCivilianCost();
                             if (resourceManager.food >= civilianCost && inUnitBoundingBox == true)
                             {
                                 AC_TrainObject.Play();
                                 GameObject spawnCivilianObj = Instantiate(civilianObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnCivilianObj.GetComponent<HealthManager>().healthTotal = faction.GetCivilianHealth();
+                                spawnCivilianObj.GetComponent<UnitController>().sight = faction.GetCivilianSight();
+                                spawnCivilianObj.GetComponent<UnitController>().range = faction.GetCivilianRange();
+                                spawnCivilianObj.GetComponent<UnitController>().speed = faction.GetCivilianMoveSpeed();
+                                spawnCivilianObj.GetComponent<UnitController>().attack = faction.GetCivilianAttack();
+                                spawnCivilianObj.GetComponent<UnitController>().attackSpeed = faction.GetCivilianAttackSpeed();
+
                                 spawnCivilianObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                 spawnCivilianObj.GetComponent<PlayerColorManager>().SetColor();
                                 spawnCivilianObj.GetComponent<UnitController>().walkTarget = transform.position;
@@ -187,11 +247,19 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                             case 1:
+                            warriorCost = faction.GetWarriorCost();
                                 if (resourceManager.food >= warriorCost && inUnitBoundingBox == true)
                                 {
                                     AC_TrainObject.Play();
                                     GameObject spawnWarriorObj = Instantiate(warriorObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
-                                    spawnWarriorObj.GetComponent<PlayerColorManager>().playerID = playerID;
+                                spawnWarriorObj.GetComponent<HealthManager>().healthTotal = faction.GetWarriorHealth();
+                                spawnWarriorObj.GetComponent<UnitController>().sight = faction.GetWarriorSight();
+                                spawnWarriorObj.GetComponent<UnitController>().range = faction.GetWarriorRange();
+                                spawnWarriorObj.GetComponent<UnitController>().speed = faction.GetWarriorMoveSpeed();
+                                spawnWarriorObj.GetComponent<UnitController>().attack = faction.GetWarriorAttack();
+                                spawnWarriorObj.GetComponent<UnitController>().attackSpeed = faction.GetWarriorAttackSpeed();
+
+                                spawnWarriorObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                     spawnWarriorObj.GetComponent<PlayerColorManager>().SetColor();
                                     spawnWarriorObj.GetComponent<UnitController>().walkTarget = transform.position;
                                     resourceManager.food = resourceManager.food - warriorCost;
@@ -203,10 +271,18 @@ public class CursorController : MonoBehaviour
                                 }
                                 break;
                             case 2:
+                            hunterCost = faction.GetHunterCost();
                             if (resourceManager.food >= hunterCost && inUnitBoundingBox == true)
                             {
                                 AC_TrainObject.Play();
                                 GameObject spawnHunterObj = Instantiate(hunterObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnHunterObj.GetComponent<HealthManager>().healthTotal = faction.GetHunterHealth();
+                                spawnHunterObj.GetComponent<UnitController>().sight = faction.GetHunterSight();
+                                spawnHunterObj.GetComponent<UnitController>().range = faction.GetHunterRange();
+                                spawnHunterObj.GetComponent<UnitController>().speed = faction.GetHunterMoveSpeed();
+                                spawnHunterObj.GetComponent<UnitController>().attack = faction.GetHunterAttack();
+                                spawnHunterObj.GetComponent<UnitController>().attackSpeed = faction.GetHunterAttackSpeed();
+
                                 spawnHunterObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                 spawnHunterObj.GetComponent<PlayerColorManager>().SetColor();
                                 spawnHunterObj.GetComponent<UnitController>().walkTarget = transform.position;
@@ -219,10 +295,18 @@ public class CursorController : MonoBehaviour
                             }
                             break;
                             case 3:
+                            siegeCost = faction.GetSiegeCost();
                             if (resourceManager.food >= siegeCost && inUnitBoundingBox == true)
                             {
                                 AC_TrainObject.Play();
                                 GameObject spawnSiegeObj = Instantiate(siegeObj, unitSpawn.position, new Quaternion(0, 0, 0, 0)) as GameObject;
+                                spawnSiegeObj.GetComponent<HealthManager>().healthTotal = faction.GetSiegeHealth();
+                                spawnSiegeObj.GetComponent<UnitController>().sight = faction.GetSiegeSight();
+                                spawnSiegeObj.GetComponent<UnitController>().range = faction.GetSiegeRange();
+                                spawnSiegeObj.GetComponent<UnitController>().speed = faction.GetSiegeMoveSpeed();
+                                spawnSiegeObj.GetComponent<UnitController>().attack = faction.GetSiegeAttack();
+                                spawnSiegeObj.GetComponent<UnitController>().attackSpeed = faction.GetSiegeAttackSpeed();
+
                                 spawnSiegeObj.GetComponent<PlayerColorManager>().playerID = playerID;
                                 spawnSiegeObj.GetComponent<PlayerColorManager>().SetColor();
                                 spawnSiegeObj.GetComponent<UnitController>().walkTarget = transform.position;
@@ -378,15 +462,21 @@ public class CursorController : MonoBehaviour
         }
         if (col.gameObject.GetComponent<HooverData>() != null && selectedUnit == null)
         {
-            hooverUnitName.text = col.gameObject.GetComponent<HooverData>().name.ToString();
-            hooverUnitAvatar.sprite = col.gameObject.GetComponent<HooverData>().avatar;
-            hooverUnitAttack.text = col.gameObject.GetComponent<HooverData>().attack.ToString();
-            hooverUnitAttackSpeed.text = col.gameObject.GetComponent<HooverData>().attackSpeed.ToString();
-            hooverUnitMovementSpeed.text = col.gameObject.GetComponent<HooverData>().movementSpeed.ToString();
-            hooverUnitRange.text = col.gameObject.GetComponent<HooverData>().range.ToString();
-            hooverUnitHealth.text = col.gameObject.GetComponent<HooverData>().health.ToString();
-            hooveredUnit = col.gameObject;
+            hooverObject = col.gameObject;
+            FillHooverInfo();
         }
+    }
+    public void FillHooverInfo()
+    {
+        hooverUnitName.text = "Name: " + hooverObject.gameObject.GetComponent<HooverData>().name.ToString();
+        hooverUnitAvatar.enabled = true;
+        hooverUnitAvatar.sprite = hooverObject.gameObject.GetComponent<HooverData>().avatar;
+        hooverUnitAttack.text = "Attack: " + hooverObject.gameObject.GetComponent<HooverData>().attack.ToString();
+        hooverUnitAttackSpeed.text = "AttackSpeed: " + hooverObject.gameObject.GetComponent<HooverData>().attackSpeed.ToString();
+        hooverUnitMovementSpeed.text = "MovementSpeed: " + hooverObject.gameObject.GetComponent<HooverData>().movementSpeed.ToString();
+        hooverUnitRange.text = "Range: " + hooverObject.gameObject.GetComponent<HooverData>().range.ToString();
+        hooverUnitHealth.text = "Health: " + hooverObject.gameObject.GetComponent<HooverData>().health.ToString();
+        hooveredUnit = hooverObject.gameObject;
     }
     private void OnTriggerExit(Collider col)
     {
@@ -397,11 +487,13 @@ public class CursorController : MonoBehaviour
         if (col.gameObject.GetComponent<HooverData>() != null && selectedUnit == null)
         {
             hooverUnitName.text = "";
+            hooverUnitAvatar.enabled = false;
             hooverUnitAttack.text = "";
             hooverUnitAttackSpeed.text = "";
             hooverUnitMovementSpeed.text = "";
             hooverUnitRange.text = "";
             hooverUnitHealth.text = "";
+            hooverObject = null;
         }
     }
     void GatherResource()
@@ -420,11 +512,11 @@ public class CursorController : MonoBehaviour
         }
         if(resourceTarget.GetComponent<ResourceSpawnManager>() != null)
         {
-            if(resourceTarget.GetComponent<ResourceSpawnManager>().resourceType == "wood")
+            if(resourceTarget.GetComponent<ResourceSpawnManager>().resourceType == "wood" && resourceTarget.GetComponent<ResourceSpawnManager>().resourceActive == true)
             {
                 resourceManager.wood = resourceManager.wood + resourceTarget.GetComponent<ResourceSpawnManager>().resourceAmount;
             }
-            if (resourceTarget.GetComponent<ResourceSpawnManager>().resourceType == "food")
+            if (resourceTarget.GetComponent<ResourceSpawnManager>().resourceType == "food" && resourceTarget.GetComponent<ResourceSpawnManager>().resourceActive == true)
             {
                 resourceManager.food = resourceManager.food + resourceTarget.GetComponent<ResourceSpawnManager>().resourceAmount;
             }

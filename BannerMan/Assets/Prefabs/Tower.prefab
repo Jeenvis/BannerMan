@@ -177,10 +177,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12fb9de5cc7ce974a9d3af4c3418f465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 6739209656057996412}
+  myMaterial:
+  - {fileID: 0}
   playerID: 0
   ColorManager: {fileID: 0}
   myColor: {r: 0, g: 0, b: 0, a: 0}
+  textureMode: 0
+  colorMode: 0
+  colorMaterial: []
 --- !u!114 &5101392731242000020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,7 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 291923fabd0273b48b8ef9210d880e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthTotal: 3
+  healthTotal: 0
   healthCurrent: 0
   deathEffect: {fileID: 160018, guid: 43cc1a347ac43cd498e91db9fb766337, type: 3}
 --- !u!65 &8490716157727166706
@@ -207,7 +211,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3, y: 3.5144682, z: 3}
+  m_Size: {x: 5, y: 6, z: 5}
   m_Center: {x: 0, y: 1.7572341, z: 0}
 --- !u!114 &7906173239962874010
 MonoBehaviour:
@@ -221,8 +225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfb266b636ec0934d9219823221d5e7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 7
-  fireRate: 1
+  range: 0
+  fireRate: 0
+  towerAttack: 0
   enemyTag: targetObject
   projectilePrefab: {fileID: 4242760137068527251, guid: 74d09a95ec836f04d8aa000db6bf5037,
     type: 3}
@@ -241,13 +246,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61165eea5dc097e49815f6ff9176ef6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  avatar: {fileID: 0}
-  attack: 0
-  attackSpeed: 0
+  name: Tower
+  avatar: {fileID: 21300000, guid: a402ac66f25f1854a9773d4923345158, type: 3}
+  attack: 1
+  attackSpeed: 1
   movementSpeed: 0
-  range: 0
-  health: 0
+  range: 7
+  health: 3
 --- !u!1 &5259898668634355137
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,12 +499,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5921e45280d702e44ad0fb582ac16d26, type: 3}
---- !u!1 &6739209656057996412 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: 5921e45280d702e44ad0fb582ac16d26,
-    type: 3}
-  m_PrefabInstance: {fileID: 6739209656058094300}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6739209656058493020 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 5921e45280d702e44ad0fb582ac16d26,

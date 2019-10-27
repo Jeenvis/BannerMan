@@ -11,6 +11,10 @@ public class HealthManager : MonoBehaviour
     void Start()
     {
         healthCurrent = healthTotal;
+        if (transform.gameObject.GetComponent<HooverData>() != null)
+        {
+            transform.gameObject.GetComponent<HooverData>().UpdateHealth();
+        }
     }
 
     // Update is called once per frame
@@ -21,6 +25,10 @@ public class HealthManager : MonoBehaviour
     public void TakeDamage(int damageTaken)
     {
         healthCurrent = healthCurrent - damageTaken;
+        if(transform.gameObject.GetComponent<HooverData>() != null)
+        {
+            transform.gameObject.GetComponent<HooverData>().UpdateHealth();
+        }
         if (healthCurrent <= 0)
         {
             if(deathEffect != null)

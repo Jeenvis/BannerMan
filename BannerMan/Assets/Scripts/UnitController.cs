@@ -26,6 +26,7 @@ public class UnitController : MonoBehaviour
     public AudioSource AC_GrabResource;
     public float attackSpeed;
     public string unitType;
+    public Animator myAnimator;
 
     // Start is called before the first frame update
 
@@ -108,11 +109,19 @@ public class UnitController : MonoBehaviour
     {
         if (target != null)
         {
+            if (nearestEnemy == null)
+            {
+                nearestEnemy = target.gameObject;
+            }
             float dist = Vector3.Distance(transform.position, target.position);
             if (dist <= range && nearestEnemy != null)
             {
                 if (nearestEnemy.GetComponent<HealthManager>() != null)
                 {
+                    if (myAnimator != null)
+                    {
+                        myAnimator.GetComponent<Animator>().SetTrigger("MeleeAttack");
+                    }
                     nearestEnemy.GetComponent<HealthManager>().TakeDamage(attack);
                     GameObject collisionDust = (GameObject)Instantiate(impactEffect, target.transform.position + new Vector3(0, 1, 0), transform.rotation);
                     Destroy(collisionDust, 2f);
@@ -128,6 +137,10 @@ public class UnitController : MonoBehaviour
             {
                 nearestEnemy = target.gameObject;
             }
+            if (myAnimator != null)
+            {
+                myAnimator.GetComponent<Animator>().SetTrigger("RangedAttack");
+            }
             GameObject projectileSpawnedPrefab = Instantiate(projectilePrefab, transform.position, transform.rotation) as GameObject;
             AC_projectileLaunch.Play();
             ProjectileController projectile = projectileSpawnedPrefab.GetComponent<ProjectileController>();
@@ -141,8 +154,12 @@ public class UnitController : MonoBehaviour
     }
     void GatherResource()
     {
-        if (target != null)
-        {
+        if (target != null) { 
+            if(nearestEnemy == null)
+            {
+                nearestEnemy = target.gameObject;
+            }
+            
             float dist = Vector3.Distance(transform.position, target.position);
             if (dist <= range && nearestEnemy != null && resourceManager != null)
             {
@@ -150,6 +167,10 @@ public class UnitController : MonoBehaviour
                 {
                     if (nearestEnemy.GetComponent<GrabAbleResourceManager>().resourceType == "wood" && nearestEnemy.GetComponent<GrabAbleResourceManager>().grabbed == false)
                     {
+                        if (myAnimator != null)
+                        {
+                            myAnimator.GetComponent<Animator>().SetTrigger("MeleeAttack");
+                        }
                         resourceManager.wood = resourceManager.wood + nearestEnemy.GetComponent<GrabAbleResourceManager>().resourceAmount;
                         nearestEnemy.GetComponent<GrabAbleResourceManager>().grabbed = true;
                         resourceManager.ChangeUI();
@@ -162,6 +183,10 @@ public class UnitController : MonoBehaviour
                 {
                     if (nearestEnemy.GetComponent<ResourceSpawnManager>().resourceActive == true)
                     {
+                        if (myAnimator != null)
+                        {
+                            myAnimator.GetComponent<Animator>().SetTrigger("MeleeAttack");
+                        }
                         if (nearestEnemy.GetComponent<ResourceSpawnManager>().resourceType == "wood")
                         {
                             resourceManager.wood = resourceManager.wood + nearestEnemy.GetComponent<ResourceSpawnManager>().resourceAmount;

@@ -60,16 +60,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Prefabs\FactionSelection\FactionSelectable.cs" />
     <Compile Include="Assets\Scripts\BariccadeManager.cs" />
     <Compile Include="Assets\Scripts\BoundingBoxManager.cs" />
     <Compile Include="Assets\Scripts\CastleManager.cs" />
     <Compile Include="Assets\Scripts\CastleManager1.cs" />
+    <Compile Include="Assets\Scripts\ControllerChecker.cs" />
     <Compile Include="Assets\Scripts\CursorController.cs" />
+    <Compile Include="Assets\Scripts\CursorMovementManager.cs" />
     <Compile Include="Assets\Scripts\DummyManager.cs" />
+    <Compile Include="Assets\Scripts\Factions\Factions.cs" />
+    <Compile Include="Assets\Scripts\Factions\TheAlligatorEmpire.cs" />
+    <Compile Include="Assets\Scripts\Factions\TheCatCoalition.cs" />
+    <Compile Include="Assets\Scripts\Factions\TheElephantElders.cs" />
+    <Compile Include="Assets\Scripts\Factions\TheSlothKingdom.cs" />
     <Compile Include="Assets\Scripts\GrabAbleResourceManager.cs" />
     <Compile Include="Assets\Scripts\HealthManager.cs" />
     <Compile Include="Assets\Scripts\HooverData.cs" />
     <Compile Include="Assets\Scripts\PlacementManager.cs" />
+    <Compile Include="Assets\Scripts\PlayableRaces\Faction.cs" />
     <Compile Include="Assets\Scripts\PlayableRaces\PlayerSelectionRaces.cs" />
     <Compile Include="Assets\Scripts\PlayerColorLibrary.cs" />
     <Compile Include="Assets\Scripts\PlayerColorManager.cs" />

@@ -177,10 +177,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12fb9de5cc7ce974a9d3af4c3418f465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myMaterial: {fileID: 7890714724217070186}
+  myMaterial:
+  - {fileID: 0}
   playerID: 0
   ColorManager: {fileID: 0}
   myColor: {r: 0, g: 0, b: 0, a: 0}
+  textureMode: 0
+  colorMode: 0
+  colorMaterial: []
 --- !u!114 &5101392731242000020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,13 +237,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61165eea5dc097e49815f6ff9176ef6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  avatar: {fileID: 0}
+  name: Barricade
+  avatar: {fileID: 21300000, guid: ad8a0d035d5ec294595bb91fe8e960b7, type: 3}
   attack: 0
   attackSpeed: 0
   movementSpeed: 0
   range: 0
-  health: 0
+  health: 5
 --- !u!1 &5259898668634355137
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,12 +490,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cba5dcbe606db5c489d9a7269c56598a, type: 3}
---- !u!1 &7890714724217070186 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100000, guid: cba5dcbe606db5c489d9a7269c56598a,
-    type: 3}
-  m_PrefabInstance: {fileID: 7890714724217038026}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7890714724216651338 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: cba5dcbe606db5c489d9a7269c56598a,

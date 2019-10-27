@@ -4,17 +4,20 @@ using UnityEngine;
 
 public class PlayerColorManager : MonoBehaviour
 {
-    public GameObject myMaterial;
+    public GameObject[] myMaterial;
     public int playerID;
     public GameObject ColorManager;
     public Color myColor;
+    public bool textureMode = false;
+    public bool colorMode = false;
+    public Material[] colorMaterial;
 
     // Start is called before the first frame update
     void Start()
     {
         if(myMaterial == null)
         {
-            myMaterial = this.gameObject;
+            myMaterial[0] = this.gameObject;
         }
         SetColor();
     }
@@ -22,32 +25,20 @@ public class PlayerColorManager : MonoBehaviour
     // Update is called once per frame
     public void SetColor()
     {
-        ColorManager = GameObject.Find("ColorManager");
-        if (ColorManager != null)
-        {
-            switch (playerID)
+            if (textureMode == true && myMaterial.Length > 0)
             {
-                case 1:
-                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor1);
-                    break;
-                case 2:
-                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor2);
-                    break;
-                case 3:
-                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor3);
-                    break;
-                case 4:
-                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", ColorManager.GetComponent<PlayerColorLibrary>().playerColor4);
-                    break;
-                    default:
-                    myMaterial.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
-                    break;
+            
+                foreach (GameObject gO in myMaterial)
+                {
+                    if (gO.GetComponent<MeshRenderer>() != null)
+                    {
+                        gO.GetComponent<MeshRenderer>().material = colorMaterial[playerID - 1];
+                    }
+                    else if (gO.GetComponent<SkinnedMeshRenderer>() != null)
+                    {
+                        gO.GetComponent<SkinnedMeshRenderer>().material = colorMaterial[playerID - 1];
+                    }
+                }
             }
         }
-        else
-        {
-            Debug.Log(this.name + " can't find the color manager");
-        }
-        myColor = myMaterial.GetComponent<Renderer>().material.color;
-    }
 }

@@ -30,8 +30,8 @@ public class HooverData : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateHealth()
     {
-        
+        health = GetComponent<HealthManager>().healthCurrent;
     }
 }

@@ -11,6 +11,7 @@ public class TowerManager : MonoBehaviour
     public float range = 5f;
     public float fireRate = 1f;
     private float fireCountDown = 0f;
+    public int towerAttack;
 
     [Header("Unity Setup Fields")]
     public string enemyTag = "targetObject";
@@ -100,6 +101,7 @@ public class TowerManager : MonoBehaviour
         ProjectileController projectile = projectileSpawnedPrefab.GetComponent<ProjectileController>();
         projectile.parentTower = GetComponent<TowerManager>();
         projectileSpawnedPrefab.GetComponent<PlayerColorManager>().playerID = GetComponent<PlayerColorManager>().playerID;
+        projectile.GetComponent<ProjectileController>().damage = towerAttack;
         if(projectile != null)
         {
             projectile.Seek(target, nearestEnemy);
